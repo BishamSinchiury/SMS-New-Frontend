@@ -5,8 +5,9 @@ import DomainChecker from "./PrivateRoutes/DomainChecker";
 export default function Routes() {
   return (
     <BrowserRouter>
-      <DomainChecker />
-      <HomeRoutes />
+      <DomainChecker>
+        <HomeRoutes />
+      </DomainChecker>
     </BrowserRouter>
   );
 }

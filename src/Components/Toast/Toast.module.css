@@ -1,0 +1,176 @@
+.toastContainer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+    /* Allow clicking through the container area */
+}
+
+.toast {
+    pointer-events: auto;
+    /* Re-enable clicks on the toast itself */
+    min-width: 300px;
+    max-width: 400px;
+    padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
+}
+
+.toast.exiting {
+    animation: slideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Type-specific accents */
+.success {
+    border-left: 4px solid var(--success);
+}
+
+.error {
+    border-left: 4px solid var(--error);
+}
+
+.warning {
+    border-left: 4px solid var(--warning);
+}
+
+.info {
+    border-left: 4px solid var(--accent);
+}
+
+/* Icon colors */
+.icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success .icon {
+    color: var(--success);
+}
+
+.error .icon {
+    color: var(--error);
+}
+
+.warning .icon {
+    color: var(--warning);
+}
+
+.info .icon {
+    color: var(--accent);
+}
+
+.content {
+    flex: 1;
+}
+
+.title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+    color: var(--text-main);
+}
+
+.message {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.closeBtn {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.closeBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+}
+
+/* Progress Bar */
+.progressBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    width: 100%;
+}
+
+.progressFill {
+    height: 100%;
+    width: 100%;
+    transform-origin: left;
+    animation: progress linear forwards;
+}
+
+.success .progressFill {
+    background: var(--success);
+}
+
+.error .progressFill {
+    background: var(--error);
+}
+
+.warning .progressFill {
+    background: var(--warning);
+}
+
+.info .progressFill {
+    background: var(--accent);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes progress {
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+}
