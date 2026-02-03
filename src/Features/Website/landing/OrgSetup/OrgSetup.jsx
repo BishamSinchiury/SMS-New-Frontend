@@ -4,8 +4,7 @@ import styles from './OrgSetup.module.css';
 import BasicInfo from './Steps/BasicInfo';
 import ContactInfo from './Steps/ContactInfo';
 import Branding from './Steps/Branding';
-import jsonApi from '@/api/json';
-import multipartApi from '@/api/multipart'; // Assuming you have this or will use axios directly
+import OrgApi from '@/services/api/org';
 import { useToast } from '@/Components/Toast/ToastContext';
 
 const STEPS = [
@@ -98,14 +97,7 @@ const OrgSetup = () => {
       });
       data.append('domain_name', domain);
 
-      // Use multipart api for file upload
-      // If you don't have a specific multipart instance, use axios with header
-      // Here assuming jsonApi can handle it if we override headers, or use a dedicated one
-      // Let's assume we use axios directly or a helper. 
-      // For now, using jsonApi but we need to ensure content-type is set correctly by the browser (don't set it manually for FormData)
-      // Actually, axios sets it automatically if data is FormData.
-
-      await multipartApi.post('/org/create-profile/', data);
+      await OrgApi.createProfile(data);
 
       success('Organization profile created successfully!');
 

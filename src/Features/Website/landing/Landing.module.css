@@ -1,0 +1,271 @@
+/* Existing styles */
+.container {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8fafc;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 1;
+    opacity: 0.6;
+}
+
+.shape1 {
+    top: -100px;
+    left: -100px;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, #0ea5e9, #a855f7);
+}
+
+.shape2 {
+    bottom: -100px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: linear-gradient(135deg, #f43f5e, #fbbf24);
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    /* Side by side on larger screens */
+    width: 100%;
+    max-width: 1200px;
+    padding: 2rem;
+    z-index: 2;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+}
+
+.branding {
+    flex: 1;
+    color: #1e293b;
+    max-width: 500px;
+}
+
+.heroTitle {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, #0f172a, #334155);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+    font-size: 1.125rem;
+    color: #475569;
+    line-height: 1.6;
+}
+
+.authCard {
+    flex: 1;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tab {
+    flex: 1;
+    padding: 1rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #94a3b8;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.tab:hover {
+    color: #64748b;
+}
+
+.activeTab {
+    color: #0ea5e9;
+}
+
+.activeTab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #0ea5e9;
+}
+
+.cardHeader {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.cardTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.cardSubtitle {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.formGroup {
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #334155;
+    font-size: 0.9rem;
+}
+
+.inputWrapper {
+    position: relative;
+}
+
+.input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+.togglePassword {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+}
+
+.submitBtn {
+    width: 100%;
+    padding: 0.875rem;
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submitBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px -1px rgba(14, 165, 233, 0.4);
+}
+
+.submitBtn:active {
+    transform: translateY(0);
+}
+
+.submitBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ef4444;
+    font-size: 0.9rem;
+    background: rgba(239, 68, 68, 0.1);
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.forgotPasswordWrapper {
+    text-align: right;
+    margin-bottom: 1.5rem;
+    margin-top: -0.5rem;
+}
+
+.forgotPassword {
+    color: #64748b;
+    font-size: 0.875rem;
+    text-decoration: none;
+}
+
+.forgotPassword:hover {
+    color: #0ea5e9;
+    text-decoration: underline;
+}
+
+.backBtn {
+    width: 100%;
+    margin-top: 1rem;
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .branding {
+        text-align: center;
+    }
+
+    .heroTitle {
+        font-size: 2.5rem;
+    }
+
+    .authCard {
+        width: 100%;
+    }
+}
