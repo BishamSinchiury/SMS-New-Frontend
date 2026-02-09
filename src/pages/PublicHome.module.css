@@ -3,76 +3,85 @@
     display: flex;
     flex-direction: column;
     font-family: 'Inter', sans-serif;
-    background: #f8fafc;
-    color: #334155;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
 }
 
-.loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-size: 1.2rem;
-    color: #64748b;
-}
-
-.header {
+.nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 2rem;
-    background: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .logo h1 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #0ea5e9;
+    color: white;
     margin: 0;
 }
 
-.loginBtn {
-    background: #0ea5e9;
-    color: white;
+.authButtons {
+    display: flex;
+    gap: 1rem;
+}
+
+.loginBtn,
+.signupBtn {
+    padding: 0.6rem 1.5rem;
     border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.3s;
+    font-size: 0.95rem;
+}
+
+.loginBtn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .loginBtn:hover {
-    background: #0284c7;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.signupBtn {
+    background: white;
+    color: #667eea;
+}
+
+.signupBtn:hover {
+    background: #f8f9fa;
+    transform: translateY(-2px);
 }
 
 .main {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 4rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-.hero {
     text-align: center;
-    margin-bottom: 4rem;
 }
 
-.hero h2 {
+.main h2 {
     font-size: 3rem;
     font-weight: 800;
-    color: #1e293b;
     margin-bottom: 1rem;
-    letter-spacing: -0.025em;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-.hero p {
+.main p {
     font-size: 1.25rem;
-    color: #64748b;
+    opacity: 0.9;
     max-width: 600px;
-    margin: 0 auto;
 }
 
 /* Modal Styles */
@@ -82,30 +91,37 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
 }
 
 .modalContent {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     width: 90%;
-    max-width: 400px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    max-width: 450px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     animation: slideUp 0.3s ease-out;
 }
 
 @keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .modalHeader {
-    padding: 1.5rem;
+    padding: 1.5rem 2rem;
     border-bottom: 1px solid #e2e8f0;
     display: flex;
     justify-content: space-between;
@@ -115,71 +131,120 @@
 .modalHeader h2 {
     margin: 0;
     font-size: 1.25rem;
-    color: #0f172a;
+    color: #1e293b;
+    font-weight: 700;
 }
 
 .closeButton {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     color: #94a3b8;
     cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.closeButton:hover {
+    color: #475569;
 }
 
 .modalBody {
-    padding: 1.5rem;
+    padding: 2rem;
+}
+
+.authForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .formGroup {
-    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .formGroup label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
     color: #475569;
+    font-size: 0.9rem;
 }
 
 .formGroup input {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
+    padding: 0.875rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.2s;
+    transition: all 0.2s;
+    box-sizing: border-box;
 }
 
 .formGroup input:focus {
     outline: none;
-    border-color: #0ea5e9;
-    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.submitBtn {
+.formGroup small {
+    color: #64748b;
+    font-size: 0.85rem;
+}
+
+.formActions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.primaryBtn {
     width: 100%;
-    padding: 0.75rem;
-    background: #0ea5e9;
+    padding: 0.875rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s;
 }
 
-.submitBtn:disabled {
-    opacity: 0.7;
+.primaryBtn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.primaryBtn:disabled {
+    opacity: 0.6;
     cursor: not-allowed;
 }
 
-.backBtn {
-    width: 100%;
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-    background: none;
-    border: none;
+.secondaryBtn {
+    padding: 0.75rem;
+    background: transparent;
+    border: 1px solid #e2e8f0;
     color: #64748b;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.secondaryBtn:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
 }

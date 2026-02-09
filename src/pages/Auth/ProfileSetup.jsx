@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Phone, MapPin, Calendar, ArrowRight, AlertCircle } from 'lucide-react';
+import { User, Phone, MapPin, Calendar, ArrowRight, AlertCircle, LogOut } from 'lucide-react';
 import AuthApi from '@/services/api/auth';
+import { useAuth } from '@/context/AuthContext';
 import GlassInput from '@/Components/UI/Inputs/GlassInput';
 import styles from '@/Features/Website/landing/Landing.module.css'; // Reusing landing styles for consistency
 import setupStyles from './ProfileSetup.module.css'; // Specific overrides
 
 const ProfileSetup = () => {
     const navigate = useNavigate();
+    const { logout } = useAuth();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -42,6 +44,11 @@ const ProfileSetup = () => {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleLogout = async () => {
+        await logout();
+        navigate('/');
     };
 
     return (
@@ -136,6 +143,15 @@ const ProfileSetup = () => {
                             {loading ? 'Submitting...' : 'Submit Request'} <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
                         </button>
                     </form>
+
+                    <button
+                        onClick={handleLogout}
+                        className={styles.backBtn}
+                        style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+                    >
+                        <LogOut size={16} />
+                        Sign Out
+                    </button>
                 </div>
             </div>
         </div>

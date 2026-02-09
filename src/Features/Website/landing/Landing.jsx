@@ -9,8 +9,20 @@ import styles from './Landing.module.css';
 
 const Landing = () => {
   const navigate = useNavigate();
+  const { checkAuthStatus } = useAuth();
   const [authMode, setAuthMode] = useState('login'); // 'login' | 'signup'
-  const [signupStep, setSignupStep] = useState(1); // 1: details, 2: otp
+  const [step, setStep] = useState(1); // 1: details, 2: otp
+
+  // Check auth on mount
+  React.useEffect(() => {
+    const check = async () => {
+      const user = await checkAuthStatus();
+      if (user) {
+        navigate('/dashboard');
+      }
+    };
+    check();
+  }, []);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -36,10 +48,33 @@ const Landing = () => {
     setError(null);
     try {
       await AuthApi.login(formData.email, formData.password);
-      window.location.reload(); // Or navigate + context update
-      // navigate('/dashboard'); 
+
+      const user = await checkAuthStatus();
+      if (user) {
+        navigate('/dashboard');
+      } else {
+        // OTP Required
+        setStep(2);
+      }
     } catch (err) {
       setError(err.response?.data?.detail || "Invalid credentials");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerifyLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    try {
+      await AuthApi.verifyLogin(formData.email, otp);
+      const user = await checkAuthStatus();
+      if (user) {
+        navigate('/dashboard');
+      }
+    } catch (err) {
+      setError(err.response?.data?.error || "Verification failed");
     } finally {
       setLoading(false);
     }
@@ -55,7 +90,7 @@ const Landing = () => {
     setError(null);
     try {
       await AuthApi.signup(formData.email, formData.password);
-      setSignupStep(2);
+      setStep(2);
     } catch (err) {
       setError(err.response?.data?.error || "Signup failed");
     } finally {
@@ -104,7 +139,7 @@ const Landing = () => {
             </button>
             <button
               className={`${styles.tab} ${authMode === 'signup' ? styles.activeTab : ''}`}
-              onClick={() => { setAuthMode('signup'); setSignupStep(1); setError(null); }}
+              onClick={() => { setAuthMode('signup'); setStep(1); setError(null); }}
             >
               Sign Up
             </button>
@@ -112,12 +147,14 @@ const Landing = () => {
 
           <div className={styles.cardHeader}>
             <h2 className={styles.cardTitle}>
-              {authMode === 'login' ? 'Welcome Back' : (signupStep === 1 ? 'Create Account' : 'Verify Email')}
+              {authMode === 'login'
+                ? (step === 1 ? 'Welcome Back' : 'Verify Login')
+                : (step === 1 ? 'Create Account' : 'Verify Email')}
             </h2>
             <p className={styles.cardSubtitle}>
               {authMode === 'login'
                 ? 'Enter your credentials to access your account'
-                : (signupStep === 1 ? 'Start your journey with us' : `Enter code sent to ${formData.email}`)
+                : (step === 1 ? 'Start your journey with us' : `Enter code sent to ${formData.email}`)
               }
             </p>
           </div>
@@ -129,7 +166,7 @@ const Landing = () => {
             </div>
           )}
 
-          {authMode === 'login' && (
+          {authMode === 'login' && step === 1 && (
             <form onSubmit={handleLogin}>
               <GlassInput
                 id="email"
@@ -158,7 +195,7 @@ const Landing = () => {
             </form>
           )}
 
-          {authMode === 'signup' && signupStep === 1 && (
+          {authMode === 'signup' && step === 1 && (
             <form onSubmit={handleSignup}>
               <GlassInput
                 id="email"
@@ -193,7 +230,7 @@ const Landing = () => {
             </form>
           )}
 
-          {authMode === 'signup' && signupStep === 2 && (
+          {authMode === 'signup' && step === 2 && (
             <form onSubmit={handleVerifySignup}>
               <OTPInput
                 length={6}
@@ -206,7 +243,28 @@ const Landing = () => {
               <button
                 type="button"
                 className={styles.backBtn}
-                onClick={() => setSignupStep(1)}
+                onClick={() => setStep(1)}
+              >
+                Back
+              </button>
+            </form>
+          )}
+
+          {/* Login OTP Step */}
+          {authMode === 'login' && step === 2 && (
+            <form onSubmit={handleVerifyLogin}>
+              <OTPInput
+                length={6}
+                value={otp}
+                onChange={setOtp}
+              />
+              <button type="submit" className={styles.submitBtn} disabled={loading}>
+                {loading ? 'Verifying...' : 'Verify'}
+              </button>
+              <button
+                type="button"
+                className={styles.backBtn}
+                onClick={() => setStep(1)}
               >
                 Back
               </button>
@@ -217,5 +275,4 @@ const Landing = () => {
     </div>
   );
 };
-
 export default Landing;

@@ -9,6 +9,7 @@ import StatusPage from '@/pages/Auth/StatusPage';
 
 import ProtectedRoute from '@/routes/ProtectedRoute';
 import Dashboard from '@/Features/Core/Dashboard/Dashboard';
+import AdminDashboard from '@/Features/Dashboards/AdminDashboard';
 
 export default function HomeRoutes() {
 
@@ -23,6 +24,7 @@ export default function HomeRoutes() {
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

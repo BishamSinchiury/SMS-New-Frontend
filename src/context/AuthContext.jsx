@@ -5,23 +5,22 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const checkAuthStatus = async () => {
+        setLoading(true);
         try {
             const response = await AuthApi.getCurrentUser();
             setUser(response.data);
+            return response.data;
         } catch (err) {
             setUser(null);
+            return null;
         } finally {
             setLoading(false);
         }
     };
-
-    useEffect(() => {
-        checkAuthStatus();
-    }, []);
 
     const login = async (email, password) => {
         setLoading(true);
@@ -51,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, error, login, logout }}>
+        <AuthContext.Provider value={{ user, loading, error, login, logout, checkAuthStatus }}>
             {children}
         </AuthContext.Provider>
     );

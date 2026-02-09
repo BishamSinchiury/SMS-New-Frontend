@@ -13,7 +13,7 @@ const StatusPage = () => {
 
     const handleLogout = () => {
         logout();
-        navigate('/login');
+        navigate('/');
     };
 
     const handleRetry = () => {
