@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { AlertCircle, User, Lock, Mail, ArrowRight } from 'lucide-react';
 import AuthApi from '@/services/api/auth';
 import { useAuth } from '@/context/AuthContext';
@@ -9,8 +9,9 @@ import styles from './Landing.module.css';
 
 const Landing = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { checkAuthStatus } = useAuth();
-  const [authMode, setAuthMode] = useState('login'); // 'login' | 'signup'
+  const [authMode, setAuthMode] = useState(location.state?.mode || 'login'); // 'login' | 'signup'
   const [step, setStep] = useState(1); // 1: details, 2: otp
 
   // Check auth on mount
@@ -57,7 +58,11 @@ const Landing = () => {
         setStep(2);
       }
     } catch (err) {
-      setError(err.response?.data?.detail || "Invalid credentials");
+      if (!err.response) {
+        setError("Network Error. Please check your internet connection.");
+      } else {
+        setError(err.response?.data?.detail || "Invalid credentials");
+      }
     } finally {
       setLoading(false);
     }
@@ -74,7 +79,11 @@ const Landing = () => {
         navigate('/dashboard');
       }
     } catch (err) {
-      setError(err.response?.data?.error || "Verification failed");
+      if (!err.response) {
+        setError("Network Error. Please check your internet connection.");
+      } else {
+        setError(err.response?.data?.error || "Verification failed");
+      }
     } finally {
       setLoading(false);
     }
@@ -92,7 +101,11 @@ const Landing = () => {
       await AuthApi.signup(formData.email, formData.password);
       setStep(2);
     } catch (err) {
-      setError(err.response?.data?.error || "Signup failed");
+      if (!err.response) {
+        setError("Network Error. Please check your internet connection.");
+      } else {
+        setError(err.response?.data?.error || "Signup failed");
+      }
     } finally {
       setLoading(false);
     }
@@ -107,7 +120,11 @@ const Landing = () => {
       // Navigate to org setup after successful signup/login
       navigate('/org-setup');
     } catch (err) {
-      setError(err.response?.data?.error || "Verification failed");
+      if (!err.response) {
+        setError("Network Error. Please check your internet connection.");
+      } else {
+        setError(err.response?.data?.error || "Verification failed");
+      }
     } finally {
       setLoading(false);
     }

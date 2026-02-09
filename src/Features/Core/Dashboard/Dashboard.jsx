@@ -1,15 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
     const { user, logout } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        await logout();
+        navigate('/');
+    };
 
     return (
         <div className={styles.container}>
             <header className={styles.header}>
                 <h1 className={styles.title}>Dashboard</h1>
-                <button onClick={logout} className={styles.logoutBtn}>Sign Out</button>
+                <button onClick={handleLogout} className={styles.logoutBtn}>Sign Out</button>
             </header>
 
             <main className={styles.grid}>
