@@ -1,0 +1,436 @@
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+}
+
+.infoCard {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-2xl);
+    box-shadow: var(--shadow-md);
+}
+
+.errorAlert {
+    background: rgba(245, 87, 108, 0.1);
+    border: 1px solid var(--color-error);
+    color: var(--color-error);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-xl);
+    font-size: var(--font-size-sm);
+    animation: slideIn 0.3s ease-out;
+    white-space: pre-line;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.successAlert {
+    background: rgba(67, 233, 123, 0.1);
+    border: 1px solid var(--color-success);
+    color: var(--color-success);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-xl);
+    font-size: var(--font-size-sm);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card Base */
+.profileCard {
+    background: var(--bg-card);
+    border-radius: 20px;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--border-color-light);
+    overflow: hidden;
+    animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.cardHeader {
+    height: 160px;
+    background: var(--primary-gradient);
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.uploadIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: white;
+}
+
+/* Body Layout */
+.cardBody {
+    padding: 40px;
+    padding-top: 110px;
+    /* Drastically increased to clear the floating logo vertically */
+    position: relative;
+}
+
+.cardLogoWrapper {
+    position: absolute;
+    top: -70px;
+    /* Pushed slightly higher into banner */
+    left: 40px;
+    width: 130px;
+    height: 130px;
+    background: var(--bg-primary);
+    border-radius: 24px;
+    border: 6px solid var(--bg-card);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 5;
+    transition: transform 0.3s ease;
+}
+
+.cardLogoWrapper:hover {
+    transform: scale(1.02);
+}
+
+.cardLogoWrapper:hover .logoUploadOverlay {
+    opacity: 1;
+}
+
+.logoUploadOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.cardLogo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+}
+
+.logoPlaceholder {
+    font-size: 14px;
+    color: var(--text-tertiary);
+    font-weight: 600;
+}
+
+/* Content Sections */
+.profileForm {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.cardTitleSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+    /* More breathing room */
+    flex-wrap: wrap;
+    /* Prevent overlap on smaller screens */
+}
+
+.titleArea {
+    flex: 1;
+    min-width: 0;
+    /* Prevents overflow */
+}
+
+.orgName {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.orgNameInput {
+    width: 100%;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.orgNameInput:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.cardActions {
+    display: flex;
+    gap: 12px;
+}
+
+.inlineActions {
+    display: flex;
+    gap: 12px;
+}
+
+/* Typography */
+.description {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 700px;
+}
+
+.descriptionTextarea {
+    width: 100%;
+    min-height: 120px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    color: var(--text-primary);
+    font-size: 16px;
+    line-height: 1.6;
+    resize: vertical;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.descriptionTextarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Grid Layout for details */
+.cardGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-color-light);
+}
+
+.infoItem {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.infoLabel {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.infoValue {
+    font-size: 15px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.infoValue a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.infoValue a:hover {
+    color: var(--primary-gradient-hover);
+}
+
+/* Inline Inputs */
+.inlineInput {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.inlineInput:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.inlineTextarea {
+    width: 100%;
+    min-height: 100px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text-primary);
+    font-size: 14px;
+    resize: vertical;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.inlineTextarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Buttons */
+.editBtn {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.editBtn:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.saveBtn {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+    white-space: nowrap;
+}
+
+.saveBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
+}
+
+.cancelBtn {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cancelBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .cardGrid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .cardTitleSection {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cardActions,
+    .inlineActions {
+        width: 100%;
+        margin-top: 16px;
+    }
+
+    .saveBtn,
+    .cancelBtn,
+    .editBtn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .cardLogoWrapper {
+        width: 100px;
+        height: 100px;
+        left: 20px;
+    }
+
+    .cardBody {
+        padding: 24px;
+        padding-top: 60px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.editMode {
+    border-color: var(--color-primary);
+}
+
+.editMode .cardLogoWrapper {
+    border-color: var(--color-primary);
+}
